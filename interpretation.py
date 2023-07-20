@@ -27,7 +27,7 @@ def get_interpretation(gender, age, loyal, travel_type, class_, distance):
                 (df_x['class'] == class_) &
                 ((df_x['age'] >= (age - 5)) & (df_x['age'] <= age+5)) &
                 ((df_x['flight_distance'] >= (distance - 250)) & (df_x['flight_distance'] <= distance + 250))].drop(main_columns, axis=1)
-    if df_x.shape[0] > 1:
+    if df_x.shape[0] > 5:
         print(df_x.shape[0])
 
         # данных для обработки достаточно, меняем флаг на Ture,
