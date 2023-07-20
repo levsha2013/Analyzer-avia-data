@@ -1,6 +1,6 @@
 altair==5.0.1
 attrs==23.1.0
-beautifulsoup4 @ file:///C:/Users/Lev/PycharmProjects/DS/beautifulsoup4-4.11.1-py3-none-any.whl
+beautifulsoup4
 blinker==1.6.2
 Boruta==0.3
 cachetools==5.3.1
