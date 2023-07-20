@@ -1,15 +1,14 @@
 import pandas as pd
 import streamlit as st
-import matplotlib.pyplot as plt
-import seaborn as sns
 
-from interpretation import get_interpretation
+
 from ML import load_model_and_predict
 
 st.set_page_config(
     page_title="Oh My App!",
     page_icon="./images/icon.png",
     layout="wide",
+    initial_sidebar_state='collapsed'
 )
 
 
@@ -62,6 +61,17 @@ def get_features_to_df(gender, loyal, travel_type, class_, age, distance):
     return X_test_x
 
 
+def print_sidebar():
+    with st.sidebar:
+        # st.image('./images/flying.gif', output_format='gif')
+        with st.expander("Информация о предсказании"):
+            st.write("Для предсказания была взята модель logistic regression. Основная причина - возможость предсказывать "
+                     "экстраполированные данные. Особенно с учетом того, что практически все преобразования с исходным датасетом "
+                     "приводили к жестким границам значений параметров. "
+                     "Модель была обучена c гиперпараметрами по умолчанию (так как основная цель буткемпа- ML-сервис "
+                     "(и я уже не успевал ничего))")
+
+
 def predict(X_test_x):
     predict = load_model_and_predict(X_test_x, path='./data/little_model_weights.mv')
     if predict == 'satisfied':
@@ -70,23 +80,6 @@ def predict(X_test_x):
         result = 'unsuccess'
     return result
 
-def interpretation_result():
-    have_enought_data, features_importance, mean_check, mean_satisfaction = get_interpretation(*X_test.iloc[0])
-    if have_enought_data:
-        st.write(f"Процент довольных пассажиров, соответствующих введенным данным: {mean_satisfaction}%")
-
-        st.write(f"Ниже представлены средние оценки таких пассажиров по аспектам обслуживания и соответствующий"
-                 f"процент влияния аспекта на удовлетворенность пассажира:")
-        for index_x, value_x in zip(features_importance.index, features_importance):
-            _, col_index, col_val = st.columns([0.1, 0.3, 0.8])
-            with col_index: st.write(index_x)
-            with col_val: st.write(f"{round(mean_check[index_x], 1)} -- ({round(value_x, 1)} %)")
-
-    else:
-        st.write("О подобных пассажирах слишком мало известно, чтобы сделать выводы.\n")
-        st.write("В данных либо нет подобных пассажиров, либо есть единственный пассажир")
-
-
 if __name__ == "__main__":
     started_page()
     features = print_features_values()
@@ -94,9 +87,9 @@ if __name__ == "__main__":
     X_test = get_features_to_df(*features)
 
     # предсказываем
-    col_1, col_2, col_3, col_4 = st.columns([0.6, 0.01, 0.16, 0.35])
+    col_1, col_2, col_3, col_4 = st.columns([0.6,0.01,0.16,0.35])
 
-    img_col, interp_col = st.columns([0.6, 1.5])
+    img_col, interp_col = st.columns([0.6,1])
 
     with col_3:
         go = st.button('Предсказать')
@@ -118,14 +111,17 @@ if __name__ == "__main__":
             with img_col:
                 st.image('./images/success.jpg', width=300, output_format='jpg')
             with interp_col:
-                interpretation_result()
+                with st.expander("Интерпретация результата"):
+                    st.write("Тут будет интерпретация успеха")
+
         # недовольство
         elif result == 'unsuccess':
-            st.warning("Пассажир будет недоволен.🙁👎")
+            st.warning("К сожалению, пассажир не оценит перелет положительно.🙁👎")
             with img_col:
                 st.image('./images/unsuccess.png', width=350)
             with interp_col:
-                interpretation_result()
+                with st.expander("Интерпретация результата"):
+                    st.write("Тут будет интерпретация недовольства")
 
         #
         elif result == 'dont_know':
