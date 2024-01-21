@@ -1,4 +1,4 @@
-# Pet project: analyzer avia_data
+# Pet project: analyzer avia_data (попробовать сервис можно [ТУТ](https://analyzer-avia-data-cqifwdhsxkedkmwgkbhbdv.streamlit.app/))
 ### Данный проект был создан как выпускная работа курса ["Разработка ML сервиса: от идеи к прототипу"](https://stepik.org/course/176820/info)  (создан [преподавателями магистратуры ВШЭ](https://www.hse.ru/org/persons/211268525))
 ![Пример отображения работающего сервиса](https://github.com/levsha2013/avia-ancet-data-analyser-service/blob/master/images/main_print.png)
 
