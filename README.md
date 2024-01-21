@@ -1,14 +1,15 @@
 # Pet project: analyzer avia_data
 ### Данный проект был создан как выпускная работа курса ["Разработка ML сервиса: от идеи к прототипу"](https://stepik.org/course/176820/info) 
+![Пример отображения работающего сервиса](https://github.com/levsha2013/avia-ancet-data-analyser-service/blob/master/images/main_print.png)
 
 ### Содержание репозитория:
-- ### Jupyter:
+- Jupyter:
   - pilot_preprocessing.ipynb
   - Factor analyzer.ipynb
   - learn model.ipynb
-- ### data (исходные и преобразованные данные в формате CSV)
-- ### images (изображения для сервиса)
-- ### python_modules (модули python, к которым обращается запускаемым сервис)
+- data (исходные и преобразованные данные в формате CSV)
+- images (изображения для сервиса)
+- python_modules (модули python, к которым обращается запускаемым сервис)
 
 ### Входные данные содержат следующие группы признаков:
 - [X] характеристики пассажиров (Age, Gender, Type_of_Travel, ...)
@@ -17,7 +18,7 @@
 
 ### Для построения серсиса было проведено следующее:
 - ✅ обнаружение и устранение ошибок в данных
-- ✅ статист. подтверждение обоснованности факторного анализа и непосредственно факторный анализ (осмысленное уменьшение размерности данных)
+- ✅ стат. обоснованность факторного анализа и непосредственно факторный анализ (осмысленное уменьшение размерности)
 - ✅ подбор гиперпараметров с помощью optuna для [CatBoostClassifier](https://catboost.ai/en/docs/concepts/python-reference_catboostclassifier) по f1 метрике на GPU
 - ✅ написание сервиса на streamlit для взаимодействия с обученной моделью и данными
 - ✅ все фотографии довольных/недовольных пассажиров созданы моделью [runwayml/stable-diffusion-v1-5](https://huggingface.co/runwayml/stable-diffusion-v1-5?text=sad+airplane+passenger+cry)
@@ -41,4 +42,3 @@ streamlit run main_streamlit.py # запуск сервиса
 3. В качестве предсказания была использована модель CatBoostClassifier с подбором гиперпараметров через opruna. Значение метрики f_score 0.88.
 4. Для вывода значимости признаков для каждого предсказания используется модуль interpretation.py. В нем выделяется подмножество похожих пассажиров, производится обучение предсказания удовлетворенности клиентов (используется catboost) и выделяется feature_importance.
 
-![Пример отображения работающего сервиса](https://github.com/levsha2013/avia-ancet-data-analyser-service/blob/master/images/main_print.png)
