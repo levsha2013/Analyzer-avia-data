@@ -47,3 +47,11 @@ def get_interpretation(gender, age, loyal, travel_type, class_, distance):
     else:
         print(df_x.shape[0])
         return have_data, None, None, None
+
+
+def load_model_and_predict(X, path="./data/best_CatBoost"):
+    load_model = CatBoostClassifier().load_model("./data/best_CatBoost", format='cbm')
+    X.columns = load_model.feature_names_
+    pred_load = load_model.predict(X)
+    print(pred_load)
+    return pred_load
