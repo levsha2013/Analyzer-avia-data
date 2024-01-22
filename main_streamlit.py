@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import random
 
-from python_modules.interpretation import get_interpretation
-from python_modules.ML import load_model_and_predict
+from python_modules.interpretation import get_interpretation, load_model_and_predict
+# from python_modules.ML import load_model_and_predict
 
 st.set_page_config(
     page_title="Oh My App!",
@@ -73,7 +73,6 @@ def interpretation_result():
 
     :return:
     """
-    print('123')
     have_enought_data, features_importance, mean_check, mean_satisfaction = get_interpretation(*X_test.iloc[0])
     if have_enought_data:
         st.write(f"### Среди похожих пассажиров доля довольных: {mean_satisfaction}%")
@@ -102,7 +101,8 @@ if __name__ == "__main__":
     result = 'dont_know'
     if go:
         # загрузка маленькой модели и вывод результата: доволен или нет
-        predict = load_model_and_predict(X_test, path='./data/little_model_weights.mv')
+        # predict = load_model_and_predict(X_test, path='./data/little_model_weights.mv')
+        predict = load_model_and_predict(X_test)
         result = 'success' if predict == 'satisfied' else 'unsuccess'
 
     with col_1:
